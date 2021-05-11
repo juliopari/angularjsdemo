@@ -20,7 +20,7 @@
                           <input type="text" class="form-control" placeholder="Ingresa el nombre de la empresa" formControlName="companyName" required>
                         </div>
                       </div>
-                      <div class="col-md-6 mt-sm-3 mt-md-0">
+                      <div class="col-md-6 mt-3 mt-md-0">
                         <div class="input-group d-flex flex-row">
                           <button class="btn btn-secondary" (click)="searchCompany = !searchCompany"><i class='bx bx-search-alt'></i></button>
                           <input *ngIf="searchCompany" type="text" class="form-control" placeholder="Ingresa el código de la empresa" required>
@@ -55,7 +55,7 @@
                           </select>
                         </div>
                       </div>
-                      <div *ngIf="basicInformationForm.value.assignNumberOfDCCharacters === 'Y'" class="col-md-2 mt-sm-3 mt-md-0">
+                      <div *ngIf="basicInformationForm.value.assignNumberOfDCCharacters === 'Y'" class="col-md-2 mt-3 mt-md-0">
                         <div class="input-group">
                           <input type="number" class="form-control" placeholder="Número" formControlName="numberOfDCCharacters" required>
                         </div>
@@ -99,14 +99,50 @@
                           </select>
                         </div>
                       </div>
-                      <div *ngIf="collectionMethodForm.value.setUpAmountsRange === 'Y'" class="col-md-2 mt-sm-3 mt-md-0">
+                      <div *ngIf="collectionMethodForm.value.setUpAmountsRange === 'Y'" class="col-md-2 mt-3 mt-md-0">
                         <div class="input-group">
-                          <input type="number" class="form-control" placeholder="Desde" formControlName="rangeStart" required>
+                          <input type="text" class="form-control" placeholder="Desde" formControlName="rangeStart" required>
                         </div>
                       </div>
-                      <div *ngIf="collectionMethodForm.value.setUpAmountsRange === 'Y'" class="col-md-2 mt-sm-3 mt-md-0">
+                      <div *ngIf="collectionMethodForm.value.setUpAmountsRange === 'Y'" class="col-md-2 mt-3 mt-md-0">
                         <div class="input-group">
-                          <input type="number" class="form-control" placeholder="Hasta" formControlName="rangeEnd" required>
+                          <input type="text" class="form-control" placeholder="Hasta" formControlName="rangeEnd" required>
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngIf="collectionMethodForm.value.collectionMethod === 'C'" class="row mb-3">
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span class="input-group-text" id="basic-addon1">2</span>   
+                          <select id="ddlCreditCardType" formControlName="forceToPayOlderFee" class="form-control">
+                            <option value="" disabled>--Obligar el pago de cuota más antigua primero--</option>
+                            <option value="Y">Si</option>
+                            <option value="N">No</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngIf="collectionMethodForm.value.collectionMethod === 'C'" class="row mb-3">
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span class="input-group-text" id="basic-addon1">3</span>   
+                          <select id="ddlCreditCardType" formControlName="allowToPayOverdueFees" class="form-control">
+                            <option value="" disabled>--Permitir el pago de cuotas vencidas--</option>
+                            <option value="Y">Si</option>
+                            <option value="N">No</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngIf="collectionMethodForm.value.collectionMethod === 'C'" class="row mb-3">
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span class="input-group-text" id="basic-addon1">4</span>
+                          <select id="ddlCreditCardType" formControlName="allowPartialPayments" class="form-control">
+                            <option value="" disabled>--Permitir pagos parciales--</option>
+                            <option value="Y">Si</option>
+                            <option value="N">No</option>
+                          </select>
                         </div>
                       </div>
                     </div>
@@ -124,21 +160,283 @@
 
             <aw-wizard-step (stepEnter)="enterStepWith(2)">
               
+              <form [formGroup]="commissionsForm">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span class="input-group-text" id="basic-addon1">1</span>   
+                          <select id="ddlCreditCardType" formControlName="typeOfCommission" class="form-control">
+                            <option value="" disabled>--Selecciona el tipo de comisión a cobrar--</option>
+                            <option value="F">Fija</option>
+                            <option value="P">Porcentual</option>
+                            <option value="E">Escalonada</option>
+                          </select>
+                        </div>
+                      </div>
+                      <ng-container *ngIf="commissionsForm.value.typeOfCommission === 'F' || commissionsForm.value.typeOfCommission === 'P'">
+                        <div class="col-md-3 mt-3 mt-md-0">
+                          <div class="input-group">
+                            <input *ngIf="commissionsForm.value.typeOfCommission === 'F'" type="text" class="form-control" placeholder="Monto a asumir por empresa" formControlName="amountByCompany" required>
+                            <input *ngIf="commissionsForm.value.typeOfCommission === 'P'" type="text" class="form-control" placeholder="% a asumir por empresa" formControlName="percentageByCompany" required>
+                          </div>
+                        </div>
+                        <div class="col-md-3 mt-3 mt-md-0">
+                          <div class="input-group">
+                            <input *ngIf="commissionsForm.value.typeOfCommission === 'F'" type="text" class="form-control" placeholder="Monto a asumir por cliente" formControlName="amountByCustomer" required>
+                            <input *ngIf="commissionsForm.value.typeOfCommission === 'P'" type="text" class="form-control" placeholder="% a asumir por cliente" formControlName="percentageByCustomer" required>
+                          </div>
+                        </div>
+                      </ng-container>      
+                    </div>
+                    <ng-container *ngIf="commissionsForm.value.typeOfCommission === 'E'">
+                      <div formArrayName="ranges">
+                        <div *ngFor="let item of tieredCommRanges.controls; let itemIndex=index" [formGroupName]="itemIndex">
+                          <div class="row mb-3">
+                            <div class="col-md-5 offset-md-1">
+                              <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1">Rango {{ (itemIndex+1) }}</span>
+                                <input type="text" class="form-control" placeholder="Rango inicio" formControlName="rangeStart" required>
+                                <input type="text" class="form-control" placeholder="Rango fin" formControlName="rangeEnd" required>
+                              </div>
+                            </div>
+                            
+                            <div class="col-md-3 mt-3 mt-md-0">
+                              <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1">S/.</span>
+                                <input type="text" class="form-control" placeholder="Comisión a la empresa" formControlName="commissionToTheCompany" required>
+                              </div>
+                            </div>
+                            <div *ngIf="tieredCommRangesLength === (itemIndex + 1)" class="col-md-2 mt-3 mt-md-0">
+                              <div class="input-group d-flex flex-row">
+                                <button class="btn btn-secondary" (click)="addTieredCommRange()">Agregar rango</button>                          
+                              </div>                                                            
+                            </div>        
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="commissionsForm.value.typeOfCommission !== ''">
+                      <div class="row mb-3">
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">2</span>
+                            <input type="text" class="form-control" placeholder="Ingrese la comisión a pagar al comercio" formControlName="commissionToPayToTheMER" required>
+                          </div>
+                        </div>        
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">3</span> 
+                            <select id="ddlCreditCardType" formControlName="percentageForSuperAgent" class="form-control">
+                              <option value="" disabled>--Selecciona el % para el super agente--</option>
+                              <option value="35%">35%</option>
+                              <option value="50%">50%</option>
+                              <option value="65%">65%</option>
+                              <option value="-">Otro</option>
+                            </select>
+                          </div>
+                        </div>
+                        <ng-container *ngIf="commissionsForm.value.percentageForSuperAgent === '-'">
+                          <div class="col-md-2 mt-3 mt-md-0">
+                            <div class="input-group">
+                              <input type="text" class="form-control" placeholder="Ingresa %" formControlName="customPctForSuperAgent" required>                
+                            </div>
+                          </div>                       
+                        </ng-container>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </form>
+              <ul class="list-inline wizard mb-0">
+                <li class="previous list-inline-item"><button class="btn btn-primary" awPreviousStep>Anterior</button>
+                </li>
+                <li class="next list-inline-item float-end"><button class="btn btn-primary" awNextStep>Siguiente</button>
+                </li>
+              </ul>
+            </aw-wizard-step>
+
+            <aw-wizard-step (stepEnter)="enterStepWith(3)">
+              
+              <form [formGroup]="paymentAccountForm">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span class="input-group-text" id="basic-addon1">1</span>   
+                          <select id="bank" formControlName="bank" class="form-control">
+                            <option value="" disabled>--Selecciona el banco--</option>
+                            <option value="Interbank">Interbank</option>
+                            <option value="BCP">BCP</option>
+                            <option value="BBVA">BBVA</option>
+                            <option value="Scotiabank">Scotiabank</option>
+                            <option value="Citibank">Citibank</option>
+                            <option value="Banbif">Banbif</option>
+                            <option value="Pichincha">Pichincha</option>
+                            <option value="Banco_XXX1">Banco XXX1</option>
+                          </select>
+                        </div>
+                      </div>               
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span class="input-group-text" id="basic-addon1">2</span>   
+                          <select id="accountType" formControlName="accountType" class="form-control">
+                            <option value="" disabled>--Selecciona el tipo de cuenta--</option>
+                            <option value="Corriente">Corriente</option>
+                            <option value="Ahorros">Ahorros</option>
+                          </select>
+                        </div>
+                      </div>                
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span class="input-group-text" id="basic-addon1">3</span>
+                          <input type="text" class="form-control" placeholder="Ingresa el número de cuenta del mismo banco" formControlName="accountNumber" required>
+                        </div>
+                      </div>        
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span class="input-group-text" id="basic-addon1">4</span>
+                          <input type="text" class="form-control" placeholder="Ingresa el número de cuenta interbancario" formControlName="interbankAccountNumber" required>
+                        </div>
+                      </div>
+                    </div>                   
+                  </div>
+                </div>
+              </form>
+              <ul class="list-inline wizard mb-0">
+                <li class="previous list-inline-item"><button class="btn btn-primary" awPreviousStep>Anterior</button>
+                </li>
+                <li class="next list-inline-item float-end"><button class="btn btn-primary" awNextStep>Siguiente</button>
+                </li>
+              </ul>
+            </aw-wizard-step>
+
+            <aw-wizard-step (stepEnter)="enterStepWith(4)">
+              
+              <form [formGroup]="emailsForm">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span class="input-group-text" id="basic-addon1">1</span>
+                          <input type="text" class="form-control" placeholder="Ingresa el correo para el envío de archivo de respuesta" #newEmailForSendingResponseFile required>
+                        </div>
+                      </div>
+                      <div class="col-md-2 mt-3 mt-md-0">
+                        <div class="input-group d-flex flex-row">
+                          <button class="btn btn-secondary" (click)="addEmailForSendingResponseFile(newEmailForSendingResponseFile.value)">Agregar</button>
+                        </div>                                                            
+                      </div>             
+                    </div>                 
+                    <div formArrayName="emailsForSendingResponseFile">
+                      <div *ngFor="let item of emailsForSendingResponseFile.controls; let itemIndex=index" [formGroupName]="itemIndex">
+                        <div class="row mb-3">
+                          <div class="col-md-5 offset-md-1">
+                            <div class="input-group">
+                              <span class="input-group-text" id="basic-addon1">@</span>
+                              <input type="text" class="form-control" placeholder="Email" formControlName="email" readonly>
+                              <button class="btn btn-danger" (click)="deleteEmailForSendingResponseFile(itemIndex)">Eliminar</button>
+                            </div>
+                          </div>                                 
+                        </div>
+                      </div>
+                    </div>                                   
+                      
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span class="input-group-text" id="basic-addon1">2</span>
+                          <input type="text" class="form-control" placeholder="Ingresa el correo para la confirmación de la carga" #newEmailForTheConfirmationOfTheLoad required>
+                        </div>
+                      </div>
+                      <div class="col-md-2 mt-3 mt-md-0">
+                        <div class="input-group d-flex flex-row">
+                          <button class="btn btn-secondary" (click)="addEmailForTheConfirmationOfTheLoad(newEmailForTheConfirmationOfTheLoad.value)">Agregar</button>
+                        </div>                                                            
+                      </div>             
+                    </div>
+                    <div formArrayName="emailsForTheConfirmationOfTheLoad">
+                      <div *ngFor="let item of emailsForTheConfirmationOfTheLoad.controls; let itemIndex=index" [formGroupName]="itemIndex">
+                        <div class="row mb-3">
+                          <div class="col-md-5 offset-md-1">
+                            <div class="input-group">
+                              <span class="input-group-text" id="basic-addon1">@</span>
+                              <input type="text" class="form-control" placeholder="Email" formControlName="email" readonly>
+                              <button class="btn btn-danger" (click)="deleteEmailForTheConfirmationOfTheLoad(itemIndex)">Eliminar</button>
+                            </div>
+                          </div>                                 
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <span class="input-group-text" id="basic-addon1">3</span>
+                          <input type="text" class="form-control" placeholder="Ingresa el correo para el envío de credenciales" #newEmailToSendCredentials required>
+                        </div>
+                      </div>
+                      <div class="col-md-2 mt-3 mt-md-0">
+                        <div class="input-group d-flex flex-row">
+                          <button class="btn btn-secondary" (click)="addEmailToSendCredentials(newEmailToSendCredentials.value)">Agregar</button>
+                        </div>                                                            
+                      </div>             
+                    </div>
+                    <div formArrayName="emailsToSendCredentials">
+                      <div *ngFor="let item of emailsToSendCredentials.controls; let itemIndex=index" [formGroupName]="itemIndex">
+                        <div class="row mb-3">
+                          <div class="col-md-5 offset-md-1">
+                            <div class="input-group">
+                              <span class="input-group-text" id="basic-addon1">@</span>
+                              <input type="text" class="form-control" placeholder="Email" formControlName="email" readonly>
+                              <button class="btn btn-danger" (click)="deleteEmailToSendCredentials(itemIndex)">Eliminar</button>
+                            </div>
+                          </div>                                 
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <ul class="list-inline wizard mb-0">
+                <li class="previous list-inline-item"><button class="btn btn-primary" awPreviousStep>Anterior</button>
+                </li>
+                <li class="next list-inline-item float-end"><button class="btn btn-primary" awNextStep>Siguiente</button>
+                </li>
+              </ul>
+            </aw-wizard-step>
+
+            <aw-wizard-step (stepEnter)="enterStepWith(5)">
+              
               <div class="row justify-content-center">
                 <div class="col-lg-6">
                   <div class="text-center">
                     <div class="mb-4">
-                      <i class="mdi mdi-check-circle-outline text-success display-4"></i>
+                      
+                      <button type="button" class="btn btn-success btn-lg">
+                        <i class="mdi mdi-check-circle-outline"></i> Crear servicio
+                    </button>
                     </div>
                     <div>
-                      <h5>Confirm Detail</h5>
-                      <p class="text-muted">If several languages coalesce, the grammar of the resulting</p>
+                      <h5>Confirmar envío</h5>
+                      <p class="text-muted">Revisa todos tus datos antes de enviar</p>                     
                     </div>
                   </div>
                 </div>
               </div>
               <ul class="list-inline wizard mb-0">
-                <li class="previous list-inline-item"><button class="btn btn-primary" awPreviousStep>Previous</button>
+                <li class="previous list-inline-item"><button class="btn btn-primary" awPreviousStep>Anterior</button>
                 </li>
               </ul>
             </aw-wizard-step>
