@@ -1,0 +1,52 @@
+<div class="container-fluid">
+
+  <!-- start page title -->
+  <app-page-title title="Reporte de comisiones" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <!-- end page title -->
+
+  <div class="row">
+      <div class="col-12">
+          <div class="card">
+              <div class="card-body">
+                <form [formGroup]="mainForm">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="row mb-3">
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">1</span>
+                            <input type="text" class="form-control" placeholder="Ingresa el RUC de la empresa" formControlName="companyRUC" required>
+                          </div>
+                        </div>        
+                      </div>
+
+                      <div class="row mb-3">
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">2</span>   
+                            <select id="ddlCreditCardType" formControlName="companyStatus" class="form-control">
+                              <option value="" disabled>--Selecciona estado de empresa--</option>
+                              <option>Todos</option>
+                              <option>Activo</option>
+                              <option>Inactivo</option>
+                            </select>
+                          </div>
+                        </div>               
+                      </div> 
+                         
+                    </div>
+                  </div>
+                </form>
+                <div class="d-flex justify-content-end">
+                  <div><button class="btn btn-primary">Buscar</button></div>
+                </div>
+              </div>
+          </div>
+      </div> <!-- end col -->
+  </div>
+  <!-- end row -->
+
+</div> <!-- container-fluid -->
+
+
+

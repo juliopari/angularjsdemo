@@ -1,0 +1,91 @@
+<div class="container-fluid">
+
+  <!-- start page title -->
+  <app-page-title title="Detalle de transacciones (Emp)" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <!-- end page title -->
+
+  <div class="row">
+      <div class="col-12">
+          <div class="card">
+              <div class="card-body">
+                <form [formGroup]="mainForm">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="row mb-3">
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">1</span>   
+                            <select id="ddlCreditCardType" formControlName="dateType" class="form-control">
+                              <option value="" disabled>--Selecciona tipo de fecha--</option>
+                              <option>Fecha de pago</option>
+                              <option>Fecha de emisión</option>
+                            </select>
+                          </div>
+                        </div>               
+                      </div> 
+      
+                      <div class="row mb-3">
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">2</span>
+                            <label class="input-group-text" for="example-date-input1">Desde</label>
+                            <input class="form-control" type="date" placeholder="Fecha desde" formControlName="startDate" id="example-date-input1">
+                            <label class="input-group-text" for="example-date-input2">Hasta</label>
+                            <input class="form-control" type="date" placeholder="Fecha hasta" formControlName="endDate" id="example-date-input2">
+                          </div>
+                        </div>               
+                      </div>
+
+                      <div class="row mb-3">
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">3</span>   
+                            <select id="ddlCreditCardType" formControlName="service" class="form-control">
+                              <option value="" disabled>--Selecciona el servicio--</option>
+                              <option>Todos</option>
+                              <option>Pensiones</option>
+                              <option>Matriculas</option>
+                              <option>Librería</option>
+                            </select>
+                          </div>
+                        </div>               
+                      </div> 
+
+                      <div class="row mb-3">
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">4</span>
+                            <input type="text" class="form-control" placeholder="Ingresa el RUC del comercio" formControlName="RUCofCommerce" required>
+                          </div>
+                        </div>        
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">5</span>
+                            <input type="text" class="form-control" placeholder="Ingresa el código deudor" formControlName="debtorCode" required>
+                          </div>
+                        </div>        
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">6</span>
+                            <input type="text" class="form-control" placeholder="Ingresa el número de operación" formControlName="operationNumber" required>
+                          </div>
+                        </div>        
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <div class="d-flex justify-content-end">
+                  <div><button class="btn btn-primary">Buscar</button></div>
+                </div>
+              </div>
+          </div>
+      </div> <!-- end col -->
+  </div>
+  <!-- end row -->
+
+</div> <!-- container-fluid -->
+

@@ -315,6 +315,33 @@
         "NEWSERVICE": "New service",
         "UPDATESERVICE": "Update service"
       }
+    },
+    "COLLECTIONBASEMANAGEMENT": {
+      "TEXT": "Collection base management",
+      "LIST":{
+        "DOWNLOADTEMPLATE": "Download template",
+        "GENERATETEXTFILE": "Generate text file",
+        "UPLOADTEXTFILE": "Upload text file"
+      }
+    },
+    "REPORTS": {
+      "TEXT": "Reports",
+      "LIST":{
+        "TRANSACTIONDETAIL-EMP": "Transaction detail (Emp)",
+        "TRANSACTIONDETAIL-NBZ": "Transaction detail (NBZ)",
+        "TRADEBASE": "Trade Base",
+        "COMMISSIONREPORT": "Commission Report",
+        "TRANSACTIONSUMMARY": "Transaction summary",
+        "RECONCILIATIONSUMMARY": "Reconciliation summary",
+        "RECONCILIATIONDETAIL": "Reconciliation detail"
+      }
+    },
+    "INTERNALUSERCREATION": {
+      "TEXT": "Internal user creation",
+      "LIST":{
+        "INTERNALUSERSCREATION": "Internal users creation",
+        "INTERNALUSERSMODIFICATION": "Internal users modification"
+      }
     }
   }
 }

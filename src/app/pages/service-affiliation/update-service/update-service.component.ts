@@ -1,13 +1,14 @@
 import { Title } from "@angular/platform-browser";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormArray } from "@angular/forms";
 
 @Component({
-  selector: "app-new-service",
-  templateUrl: "./new-service.component.html",
-  styleUrls: ["./new-service.component.scss"],
+  selector: 'app-update-service',
+  templateUrl: './update-service.component.html',
+  styleUrls: ['./update-service.component.scss']
 })
-export class NewServiceComponent implements OnInit {
+export class UpdateServiceComponent implements OnInit {
+
   breadCrumbItems: Array<{}>;
   //CamelCase forever
   basicInformationForm: FormGroup;
@@ -28,27 +29,27 @@ export class NewServiceComponent implements OnInit {
 
   constructor(private titleService: Title, private formBuilder: FormBuilder) {
     this.basicInformationForm = this.formBuilder.group({
-      companyName: ["", [Validators.required, Validators.maxLength(20)]],
-      serviceName: ["", [Validators.required, Validators.maxLength(20)]],
-      debtorCode: ["", [Validators.required, Validators.maxLength(20)]],
-      assignNumberOfDCCharacters: [""],
-      numberOfDCCharacters: [-1, [Validators.max(20)]],
+      companyName: ["Universidad de Lima", [Validators.required, Validators.maxLength(20)]],
+      serviceName: ["Pensiones", [Validators.required, Validators.maxLength(20)]],
+      debtorCode: ["Código de alumno", [Validators.required, Validators.maxLength(20)]],
+      assignNumberOfDCCharacters: ["Y"],
+      numberOfDCCharacters: [7, [Validators.max(20)]],
     });
 
     this.collectionMethodForm = this.formBuilder.group({
-      collectionMethod: ["", [Validators.required]],
+      collectionMethod: ["C", [Validators.required]],
       setUpAmountsRange: [""],
       rangeStart: [null],
       rangeEnd: [null],
-      forceToPayOlderFee: [""],
-      allowToPayOverdueFees: [""],
-      allowPartialPayments: [""],
+      forceToPayOlderFee: ["Y"],
+      allowToPayOverdueFees: ["Y"],
+      allowPartialPayments: ["Y"],
     });
 
     this.commissionsForm = this.formBuilder.group({
-      typeOfCommission: ["", [Validators.required]],
-      amountByCompany: [null],
-      amountByCustomer: [null],
+      typeOfCommission: ["F", [Validators.required]],
+      amountByCompany: [1.00],
+      amountByCustomer: [0.50],
       percentageByCompany: [null],
       percentageByCustomer: [null],
       ranges: this.formBuilder.array([this.formBuilder.group({rangeStart: [0], rangeEnd: [999999], commissionToTheCompany: [null]})]),
@@ -58,16 +59,16 @@ export class NewServiceComponent implements OnInit {
     });
     
     this.paymentAccountForm = this.formBuilder.group({
-      bank: ["", [Validators.required]],
-      accountType: ["", [Validators.required]],
-      accountNumber: ["", [Validators.required]],
-      interbankAccountNumber: ["", [Validators.required]]
+      bank: ["Interbank", [Validators.required]],
+      accountType: ["Corriente", [Validators.required]],
+      accountNumber: ["193-1234567890", [Validators.required]],
+      interbankAccountNumber: ["200-193-1234567890-1234", [Validators.required]]
     });
 
     this.emailsForm = this.formBuilder.group({
-      emailsForSendingResponseFile: this.formBuilder.array([]),
-      emailsForTheConfirmationOfTheLoad: this.formBuilder.array([]),
-      emailsToSendCredentials: this.formBuilder.array([]),
+      emailsForSendingResponseFile: this.formBuilder.array([this.formBuilder.group({email: ["fabi@example.com"]})]),
+      emailsForTheConfirmationOfTheLoad: this.formBuilder.array([this.formBuilder.group({email: ["pepito@example.com"]})]),
+      emailsToSendCredentials: this.formBuilder.array([this.formBuilder.group({email: ["pepito@example.com"]})]),
     });
 
     this.onChanges();
@@ -131,7 +132,7 @@ export class NewServiceComponent implements OnInit {
   ngOnInit() {
     this.breadCrumbItems = [
       { label: "Afiliación de servicios" },
-      { label: "Nuevo servicio", active: true },
+      { label: "Modificar servicio", active: true },
     ];
   }
 
@@ -184,10 +185,6 @@ export class NewServiceComponent implements OnInit {
               percentageByCustomer: null,
             });
             break;
-          case "E": 
-            this.tieredCommRanges.clear();
-            this.tieredCommRanges.push(this.formBuilder.group({rangeStart: [0], rangeEnd: [999999], commissionToTheCompany: [null]}));
-            break;
         }      
         this.commissionsForm.patchValue({
           commissionToPayToTheMER: "",
@@ -218,7 +215,7 @@ export class NewServiceComponent implements OnInit {
   enterStepWith(num): void {
     this.currentStepTitle = this.stepTitles[num];
     this.titleService.setTitle(
-      "RyS | Nuevo Servicio > " + this.currentStepTitle
+      "RyS | Modificar Servicio > " + this.currentStepTitle
     );
   }
 }

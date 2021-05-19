@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <app-page-title title="Nuevo servicio" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <app-page-title title="Modificar servicio" [breadcrumbItems]="breadCrumbItems"></app-page-title>
 
   <div class="row">
     <div class="col-lg-12">
@@ -17,16 +17,10 @@
                       <div class="col-md-6">
                         <div class="input-group">
                           <span class="input-group-text" id="basic-addon1">1</span>
-                          <input type="text" class="form-control" placeholder="Ingresa el nombre de la empresa" formControlName="companyName" required>
+                          <input type="text" class="form-control" placeholder="Ingresa el nombre de la empresa" formControlName="companyName" readonly>
                         </div>
                       </div>
-                      <div class="col-md-6 mt-3 mt-md-0">
-                        <div class="input-group d-flex flex-row">
-                          <button class="btn btn-secondary" (click)="searchCompany = !searchCompany"><i class='bx bx-search-alt'></i></button>
-                          <input *ngIf="searchCompany" type="text" class="form-control" placeholder="Ingresa el código de la empresa" required>
-                          <button *ngIf="searchCompany" class="btn btn-primary">Buscar</button>
-                        </div>                                                            
-                      </div>            
+                                  
                     </div>
                     <div class="row mb-3">
                       <div class="col-md-6">
@@ -425,11 +419,11 @@
                     <div class="mb-4">
                       
                       <button type="button" class="btn btn-success btn-lg">
-                        <i class="mdi mdi-check-circle-outline"></i> Crear servicio
+                        <i class="mdi mdi-check-circle-outline"></i> Editar servicio
                     </button>
                     </div>
                     <div>
-                      <h5>Confirmar envío</h5>
+                      <h5>Confirmar edición</h5>
                       <p class="text-muted">Revisa todos tus datos antes de enviar</p>                     
                     </div>
                   </div>
@@ -447,3 +441,4 @@
     
   </div>
 </div>
+

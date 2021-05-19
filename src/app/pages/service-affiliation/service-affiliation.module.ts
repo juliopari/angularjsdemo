@@ -12,10 +12,12 @@ import { NgbDropdownModule, NgbTooltipModule, NgbNavModule } from '@ng-bootstrap
 import { SimplebarAngularModule } from 'simplebar-angular';
 
 import { NewServiceComponent } from './new-service/new-service.component';
+import { ServicesListComponent } from './services-list/services-list.component';
+import { UpdateServiceComponent } from './update-service/update-service.component';
 
 
 @NgModule({
-  declarations: [NewServiceComponent],
+  declarations: [NewServiceComponent, ServicesListComponent, UpdateServiceComponent],
   imports: [
     CommonModule,
     FormsModule,

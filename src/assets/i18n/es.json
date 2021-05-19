@@ -319,9 +319,34 @@
     "COLLECTIONBASEMANAGEMENT": {
       "TEXT": "Gestión de base de recaudación",
       "LIST":{
-        "DOWNLOADTEMPLATE": "Descargar plantilla",
+        "DOWNLOADTEMPLATE":{
+          "TEXT": "Descargar plantilla",
+          "LIST": {
+            "PARTIALDATA": "Data parcial",
+            "COMPLETEDATA": "Data completa"
+          }
+        } ,
         "GENERATETEXTFILE": "Generar archivo de texto",
         "UPLOADTEXTFILE": "Cargar archivo de texto"
+      }
+    },
+    "REPORTS": {
+      "TEXT": "Reportes",
+      "LIST":{
+        "TRANSACTIONDETAIL-EMP": "Detalle de transacciones (Emp)",
+        "TRANSACTIONDETAIL-NBZ": "Detalle de transacciones (NBZ)",
+        "TRADEBASE": "Base de comercios",
+        "COMMISSIONREPORT": "Reporte de comisiones",
+        "TRANSACTIONSUMMARY": "Resumen de transacciones",
+        "RECONCILIATIONSUMMARY": "Resumen de conciliación",
+        "RECONCILIATIONDETAIL": "Detalle de conciliación"
+      }
+    },
+    "INTERNALUSERCREATION": {
+      "TEXT": "Creación de usuarios internos",
+      "LIST":{
+        "INTERNALUSERSCREATION": "Creación de usuarios internos",
+        "INTERNALUSERSMODIFICATION": "Modificación de usuarios internos"
       }
     }
   }
