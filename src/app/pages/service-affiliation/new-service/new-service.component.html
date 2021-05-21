@@ -50,12 +50,12 @@
                           <span class="input-group-text" id="basic-addon1">4</span>   
                           <select id="ddlCreditCardType" formControlName="assignNumberOfDCCharacters" class="form-control">
                             <option value="" disabled>--Número exacto de caracteres de código deudor--</option>
-                            <option value="Y">Si</option>
-                            <option value="N">No</option>
+                            <option value="SI">Si</option>
+                            <option value="NO">No</option>
                           </select>
                         </div>
                       </div>
-                      <div *ngIf="basicInformationForm.value.assignNumberOfDCCharacters === 'Y'" class="col-md-2 mt-3 mt-md-0">
+                      <div *ngIf="basicInformationForm.value.assignNumberOfDCCharacters === 'SI'" class="col-md-2 mt-3 mt-md-0">
                         <div class="input-group">
                           <input type="number" class="form-control" placeholder="Número" formControlName="numberOfDCCharacters" required>
                         </div>
@@ -65,7 +65,7 @@
                 </div>
               </form>
               <ul class="list-inline wizard mb-0">
-                <li class="next list-inline-item float-end"><button class="btn btn-primary" awNextStep>Siguiente</button>
+                <li class="next list-inline-item float-end"><button class="btn btn-primary" [disabled]="!basicInformationForm.valid" awNextStep>Siguiente</button>
                 </li>
               </ul>
             </aw-wizard-step>
@@ -81,71 +81,74 @@
                           <span class="input-group-text" id="basic-addon1">1</span>   
                           <select id="ddlCreditCardType" formControlName="collectionMethod" class="form-control">
                             <option value="" disabled>--Selecciona la modalidad de recaudación--</option>
-                            <option value="S">Sin data</option>
-                            <option value="P">Data parcial</option>
-                            <option value="C">Data completa</option>
+                            <option *ngFor="let item of modalities" [value]="item.ID">{{ item.NOMBRE }}</option>
                           </select>
                         </div>
                       </div>
                     </div>
-                    <div *ngIf="collectionMethodForm.value.collectionMethod === 'S' || collectionMethodForm.value.collectionMethod === 'P'" class="row mb-3">
+                    <div *ngIf="collectionMethodForm.value.collectionMethod === '1' || collectionMethodForm.value.collectionMethod === '2'" class="row mb-3">
                       <div class="col-md-6">
                         <div class="input-group">
                           <span class="input-group-text" id="basic-addon1">2</span>   
                           <select id="ddlCreditCardType" formControlName="setUpAmountsRange" class="form-control">
                             <option value="" disabled>--Configurar rango de montos--</option>
-                            <option value="Y">Si</option>
-                            <option value="N">No</option>
+                            <option value="SI">Si</option>
+                            <option value="NO">No</option>
                           </select>
                         </div>
                       </div>
-                      <div *ngIf="collectionMethodForm.value.setUpAmountsRange === 'Y'" class="col-md-2 mt-3 mt-md-0">
-                        <div class="input-group">
-                          <input type="text" class="form-control" placeholder="Desde" formControlName="rangeStart" required>
+                      <ng-container *ngIf="collectionMethodForm.value.setUpAmountsRange === 'SI'">
+                        <div class="col-md-2 mt-3 mt-md-0">
+                          <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Desde" formControlName="rangeStart" required>
+                          </div>
                         </div>
-                      </div>
-                      <div *ngIf="collectionMethodForm.value.setUpAmountsRange === 'Y'" class="col-md-2 mt-3 mt-md-0">
-                        <div class="input-group">
-                          <input type="text" class="form-control" placeholder="Hasta" formControlName="rangeEnd" required>
+                        <div class="col-md-2 mt-3 mt-md-0">
+                          <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Hasta" formControlName="rangeEnd" required>
+                          </div>
                         </div>
-                      </div>
+                      </ng-container>
+                      
                     </div>
-                    <div *ngIf="collectionMethodForm.value.collectionMethod === 'C'" class="row mb-3">
-                      <div class="col-md-6">
-                        <div class="input-group">
-                          <span class="input-group-text" id="basic-addon1">2</span>   
-                          <select id="ddlCreditCardType" formControlName="forceToPayOlderFee" class="form-control">
-                            <option value="" disabled>--Obligar el pago de cuota más antigua primero--</option>
-                            <option value="Y">Si</option>
-                            <option value="N">No</option>
-                          </select>
+                    <ng-container *ngIf="collectionMethodForm.value.collectionMethod === '3'">
+                      <div class="row mb-3">
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">2</span>   
+                            <select id="ddlCreditCardType" formControlName="forceToPayOlderFee" class="form-control">
+                              <option value="" disabled>--Obligar el pago de cuota más antigua primero--</option>
+                              <option value="SI">Si</option>
+                              <option value="NO">No</option>
+                            </select>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div *ngIf="collectionMethodForm.value.collectionMethod === 'C'" class="row mb-3">
-                      <div class="col-md-6">
-                        <div class="input-group">
-                          <span class="input-group-text" id="basic-addon1">3</span>   
-                          <select id="ddlCreditCardType" formControlName="allowToPayOverdueFees" class="form-control">
-                            <option value="" disabled>--Permitir el pago de cuotas vencidas--</option>
-                            <option value="Y">Si</option>
-                            <option value="N">No</option>
-                          </select>
+                      <div class="row mb-3">
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">3</span>   
+                            <select id="ddlCreditCardType" formControlName="allowToPayOverdueFees" class="form-control">
+                              <option value="" disabled>--Permitir el pago de cuotas vencidas--</option>
+                              <option value="SI">Si</option>
+                              <option value="NO">No</option>
+                            </select>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div *ngIf="collectionMethodForm.value.collectionMethod === 'C'" class="row mb-3">
-                      <div class="col-md-6">
-                        <div class="input-group">
-                          <span class="input-group-text" id="basic-addon1">4</span>
-                          <select id="ddlCreditCardType" formControlName="allowPartialPayments" class="form-control">
-                            <option value="" disabled>--Permitir pagos parciales--</option>
-                            <option value="Y">Si</option>
-                            <option value="N">No</option>
-                          </select>
+                      <div class="row mb-3">
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">4</span>
+                            <select id="ddlCreditCardType" formControlName="allowPartialPayments" class="form-control">
+                              <option value="" disabled>--Permitir pagos parciales--</option>
+                              <option value="SI">Si</option>
+                              <option value="NO">No</option>
+                            </select>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </ng-container>                
                     
                   </div>
                 </div>
@@ -153,7 +156,7 @@
               <ul class="list-inline wizard mb-0">
                 <li class="previous list-inline-item"><button class="btn btn-primary" awPreviousStep>Anterior</button>
                 </li>
-                <li class="next list-inline-item float-end"><button class="btn btn-primary" awNextStep>Siguiente</button>
+                <li class="next list-inline-item float-end"><button class="btn btn-primary" [disabled]="!collectionMethodForm.valid" awNextStep>Siguiente</button>
                 </li>
               </ul>
             </aw-wizard-step>
@@ -169,36 +172,36 @@
                           <span class="input-group-text" id="basic-addon1">1</span>   
                           <select id="ddlCreditCardType" formControlName="typeOfCommission" class="form-control">
                             <option value="" disabled>--Selecciona el tipo de comisión a cobrar--</option>
-                            <option value="F">Fija</option>
-                            <option value="P">Porcentual</option>
-                            <option value="E">Escalonada</option>
+                            <option *ngFor="let item of commissionTypes" [value]="item.ID">{{ item.DESCRIPCION }}</option>
                           </select>
                         </div>
                       </div>
-                      <ng-container *ngIf="commissionsForm.value.typeOfCommission === 'F' || commissionsForm.value.typeOfCommission === 'P'">
+                      <ng-container *ngIf="commissionsForm.value.typeOfCommission === '1' || commissionsForm.value.typeOfCommission === '2'">
                         <div class="col-md-3 mt-3 mt-md-0">
                           <div class="input-group">
-                            <input *ngIf="commissionsForm.value.typeOfCommission === 'F'" type="text" class="form-control" placeholder="Monto a asumir por empresa" formControlName="amountByCompany" required>
-                            <input *ngIf="commissionsForm.value.typeOfCommission === 'P'" type="text" class="form-control" placeholder="% a asumir por empresa" formControlName="percentageByCompany" required>
+                            <span *ngIf="commissionsForm.value.typeOfCommission === '1'" class="input-group-text" id="basic-addon1">S/.</span>
+                            <input type="text" class="form-control" [placeholder]="commissionTypeLabel + ' a asumir por empresa'" formControlName="amountByCompany" required>                       
+                            <span *ngIf="commissionsForm.value.typeOfCommission === '2'" class="input-group-text" id="basic-addon1">%</span>
                           </div>
                         </div>
                         <div class="col-md-3 mt-3 mt-md-0">
                           <div class="input-group">
-                            <input *ngIf="commissionsForm.value.typeOfCommission === 'F'" type="text" class="form-control" placeholder="Monto a asumir por cliente" formControlName="amountByCustomer" required>
-                            <input *ngIf="commissionsForm.value.typeOfCommission === 'P'" type="text" class="form-control" placeholder="% a asumir por cliente" formControlName="percentageByCustomer" required>
+                            <span *ngIf="commissionsForm.value.typeOfCommission === '1'" class="input-group-text" id="basic-addon1">S/.</span>
+                            <input  type="text" class="form-control" [placeholder]="commissionTypeLabel + ' a asumir por cliente'" formControlName="amountByCustomer" required>                         
+                            <span *ngIf="commissionsForm.value.typeOfCommission === '2'" class="input-group-text" id="basic-addon1">%</span>
                           </div>
                         </div>
                       </ng-container>      
                     </div>
-                    <ng-container *ngIf="commissionsForm.value.typeOfCommission === 'E'">
+                    <ng-container *ngIf="commissionsForm.value.typeOfCommission === '3'">
                       <div formArrayName="ranges">
                         <div *ngFor="let item of tieredCommRanges.controls; let itemIndex=index" [formGroupName]="itemIndex">
                           <div class="row mb-3">
                             <div class="col-md-5 offset-md-1">
                               <div class="input-group">
                                 <span class="input-group-text" id="basic-addon1">Rango {{ (itemIndex+1) }}</span>
-                                <input type="text" class="form-control" placeholder="Rango inicio" formControlName="rangeStart" required>
-                                <input type="text" class="form-control" placeholder="Rango fin" formControlName="rangeEnd" required>
+                                <input type="text" class="form-control" placeholder="Rango inicio" formControlName="rangeStart" readonly required>
+                                <input type="text" class="form-control" placeholder="Rango fin" formControlName="rangeEnd" (input)="rangeEndEnterEvent($event.target.value, itemIndex)" [readonly]="tieredCommRangesLength === (itemIndex + 1)" required>
                               </div>
                             </div>
                             
@@ -222,7 +225,9 @@
                         <div class="col-md-6">
                           <div class="input-group">
                             <span class="input-group-text" id="basic-addon1">2</span>
+                            <span *ngIf="commissionsForm.value.typeOfCommission !== '2'" class="input-group-text" id="basic-addon1">S/.</span>
                             <input type="text" class="form-control" placeholder="Ingrese la comisión a pagar al comercio" formControlName="commissionToPayToTheMER" required>
+                            <span *ngIf="commissionsForm.value.typeOfCommission === '2'" class="input-group-text" id="basic-addon1">%</span>
                           </div>
                         </div>        
                       </div>
@@ -232,11 +237,12 @@
                             <span class="input-group-text" id="basic-addon1">3</span> 
                             <select id="ddlCreditCardType" formControlName="percentageForSuperAgent" class="form-control">
                               <option value="" disabled>--Selecciona el % para el super agente--</option>
-                              <option value="35%">35%</option>
-                              <option value="50%">50%</option>
-                              <option value="65%">65%</option>
+                              <option value="35">35</option>
+                              <option value="50">50</option>
+                              <option value="65">65</option>
                               <option value="-">Otro</option>
                             </select>
+                            <span class="input-group-text" id="basic-addon1">%</span>
                           </div>
                         </div>
                         <ng-container *ngIf="commissionsForm.value.percentageForSuperAgent === '-'">
@@ -254,7 +260,7 @@
               <ul class="list-inline wizard mb-0">
                 <li class="previous list-inline-item"><button class="btn btn-primary" awPreviousStep>Anterior</button>
                 </li>
-                <li class="next list-inline-item float-end"><button class="btn btn-primary" awNextStep>Siguiente</button>
+                <li class="next list-inline-item float-end"><button class="btn btn-primary" [disabled]="!commissionsForm.valid" awNextStep>Siguiente</button>
                 </li>
               </ul>
             </aw-wizard-step>
@@ -270,14 +276,7 @@
                           <span class="input-group-text" id="basic-addon1">1</span>   
                           <select id="bank" formControlName="bank" class="form-control">
                             <option value="" disabled>--Selecciona el banco--</option>
-                            <option value="Interbank">Interbank</option>
-                            <option value="BCP">BCP</option>
-                            <option value="BBVA">BBVA</option>
-                            <option value="Scotiabank">Scotiabank</option>
-                            <option value="Citibank">Citibank</option>
-                            <option value="Banbif">Banbif</option>
-                            <option value="Pichincha">Pichincha</option>
-                            <option value="Banco_XXX1">Banco XXX1</option>
+                            <option *ngFor="let item of banks" [value]="item.ID">{{ item.NOMBRE }}</option>
                           </select>
                         </div>
                       </div>               
@@ -288,8 +287,7 @@
                           <span class="input-group-text" id="basic-addon1">2</span>   
                           <select id="accountType" formControlName="accountType" class="form-control">
                             <option value="" disabled>--Selecciona el tipo de cuenta--</option>
-                            <option value="Corriente">Corriente</option>
-                            <option value="Ahorros">Ahorros</option>
+                            <option *ngFor="let item of accountTypes" [value]="item.ID">{{ item.NOMBRE }}</option>
                           </select>
                         </div>
                       </div>                
@@ -316,7 +314,7 @@
               <ul class="list-inline wizard mb-0">
                 <li class="previous list-inline-item"><button class="btn btn-primary" awPreviousStep>Anterior</button>
                 </li>
-                <li class="next list-inline-item float-end"><button class="btn btn-primary" awNextStep>Siguiente</button>
+                <li class="next list-inline-item float-end"><button class="btn btn-primary" [disabled]="!paymentAccountForm.valid" awNextStep>Siguiente</button>
                 </li>
               </ul>
             </aw-wizard-step>
@@ -412,7 +410,7 @@
               <ul class="list-inline wizard mb-0">
                 <li class="previous list-inline-item"><button class="btn btn-primary" awPreviousStep>Anterior</button>
                 </li>
-                <li class="next list-inline-item float-end"><button class="btn btn-primary" awNextStep>Siguiente</button>
+                <li class="next list-inline-item float-end"><button class="btn btn-primary" [disabled]="!emailsForm.valid" awNextStep>Siguiente</button>
                 </li>
               </ul>
             </aw-wizard-step>
@@ -424,19 +422,29 @@
                   <div class="text-center">
                     <div class="mb-4">
                       
-                      <button type="button" class="btn btn-success btn-lg">
-                        <i class="mdi mdi-check-circle-outline"></i> Crear servicio
-                    </button>
+                      <button *ngIf="successfulRequest === ''" type="button" class="btn btn-success btn-lg" (click)="registerNewService()" [disabled]="newServiceBtnLoading">
+                        <i *ngIf="!newServiceBtnLoading" class="mdi mdi-check-circle-outline"></i> <i *ngIf="newServiceBtnLoading" class="bx bx-loader bx-spin align-middle"></i> Crear servicio
+                      </button>
+                      <i *ngIf="successfulRequest === 'YES'" class="mdi mdi-check-circle-outline text-success display-4"></i>
+                      <i *ngIf="successfulRequest === 'NO'" class="mdi mdi-alert-circle-outline text-success display-4"></i>              
                     </div>
-                    <div>
+                    <div *ngIf="successfulRequest === ''">
                       <h5>Confirmar envío</h5>
                       <p class="text-muted">Revisa todos tus datos antes de enviar</p>                     
+                    </div>
+                    <div *ngIf="successfulRequest === 'NO'">
+                      <h5>Error</h5>
+                      <p class="text-danger">Solicitud errónea</p>                     
+                    </div>
+                    <div *ngIf="successfulRequest === 'YES'">
+                      <h5>Bien hecho</h5>
+                      <p class="text-info">Nuevo servicio creado. ID de servicio: {{ newServiceID }}</p>                     
                     </div>
                   </div>
                 </div>
               </div>
               <ul class="list-inline wizard mb-0">
-                <li class="previous list-inline-item"><button class="btn btn-primary" awPreviousStep>Anterior</button>
+                <li *ngIf="successfulRequest === ''" class="previous list-inline-item"><button class="btn btn-primary" awPreviousStep>Anterior</button>
                 </li>
               </ul>
             </aw-wizard-step>
